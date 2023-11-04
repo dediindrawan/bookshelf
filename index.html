@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf Apps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        *,
+        ::before,
+        ::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            font-style: normal;
+            line-height: 1.65;
+            color: #fff;
+            background-color: #0b1120;
+        }
+
+        input[type='text'],
+        input[type='search'] {
+            text-transform: capitalize;
+        }
+
+        input[type='text'],
+        input[type='number'],
+        input[type='search'] {
+            width: 100%;
+            padding: .5em 1em;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            font-style: normal;
+            outline: none;
+            border: 2px solid #334155;
+            border-radius: 5px;
+            color: #fff;
+            background-color: transparent;
+            transition: border .3s ease-in-out;
+        }
+
+        input[type='checkbox'] {
+            width: 25px;
+            height: 25px;
+            margin-left: .5em;
+            cursor: pointer;
+        }
+
+        input[type='submit'] {
+            width: 100%;
+            margin-top: 1em;
+            padding: .5em 1em;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            font-style: normal;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #4984be;
+        }
+
+        input[type='text']:focus,
+        input[type='number']:focus,
+        input[type='search']:focus {
+            border: 2px solid #4984be;
+        }
+
+        button {
+            padding: .5em 1em;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: normal;
+            font-style: normal;
+            text-transform: capitalize;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .toast {
+            width: 100%;
+            padding: 1em;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            transform: translateY(-100%);
+            transition: all .3s ease-in-out;
+            background-color: #be8249;
+        }
+
+        .form-wrapper {
+            width: 100%;
+            padding: 0 1em;
+        }
+
+        .form-wrapper h1 {
+            margin-bottom: .5em;
+        }
+
+        .form-wrapper h3 {
+            margin-bottom: 1em;
+            text-align: center;
+            border-bottom: 2px solid #334155;
+        }
+
+        .form-wrapper section {
+            padding: 1em;
+            border: 2px solid #334155;
+            border-radius: 5px;
+        }
+
+        .form-wrapper section:last-child {
+            margin-top: 1em;
+        }
+
+        .input-section:not(:first-child) {
+            margin-top: .5em;
+        }
+
+        .input-section small {
+            font-style: italic;
+            color: #f37878;
+            display: none;
+        }
+
+        .checkbox {
+            width: max-content;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox label {
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .warning {
+            margin-top: 1em;
+            padding: 1em;
+            text-align: center;
+            font-size: .83rem;
+            font-style: italic;
+            border: 2px solid #be8249;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .warning i {
+            color: #be8249;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            padding: 0 1em;
+        }
+
+        .content-wrapper section {
+            padding: 1em;
+            border: 2px solid #334155;
+            border-radius: 5px;
+        }
+
+        .content-wrapper section:last-child {
+            margin-top: 1em;
+        }
+
+        .content-wrapper h3 {
+            margin-bottom: 1em;
+            text-align: center;
+            border-bottom: 2px solid #334155;
+        }
+
+        .reload-button {
+            width: 100%;
+            margin: 1em auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .reload-button button {
+            color: #be8249;
+            background-color: transparent;
+        }
+
+        .list-wrapper {
+            padding: 1em;
+            text-transform: capitalize;
+            border: 2px solid #4984be;
+            border-radius: 5px;
+            background-color: #334155;
+        }
+
+        .list-wrapper:not(:first-child) {
+            margin-top: 1em;
+        }
+
+        .list-wrapper h4 {
+            font-size: 1.17rem;
+        }
+
+        .button-group {
+            margin-top: 1em;
+        }
+
+        .button-group button:first-child {
+            margin-right: .5em;
+            color: #fff;
+            background-color: #be8249;
+        }
+
+        .button-group button:last-child {
+            color: #fff;
+            background-color: #f37878;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="toast"><i class="fa-regular fa-face-frown"></i> Buku yang Anda cari tidak ada.</div>
+        <header class="form-wrapper">
+            <h1>Bookshelf Apps</h1>
+            <section>
+                <h3>Masukkan Buku Baru</h3>
+                <form action="bookshelf.html" id="form-input">
+                    <div class="input-section">
+                        <label for="book-title-input">Judul:</label>
+                        <input type="text" name="judul" id="book-title-input" placeholder="e.g swarnadwipa"
+                            autocomplete="off">
+                        <small>error message</small>
+                    </div>
+                    <div class="input-section">
+                        <label for="book-author-input">Penulis:</label>
+                        <input type="text" name="penulis" id="book-author-input" placeholder="e.g vilda sintadela"
+                            autocomplete="off">
+                        <small>error message</small>
+                    </div>
+                    <div class="input-section">
+                        <label for="book-year-input">Tahun:</label>
+                        <input type="number" name="tahun" id="book-year-input" placeholder="e.g 2017"
+                            autocomplete="off">
+                        <small>error message</small>
+                    </div>
+                    <div class="input-section checkbox">
+                        <label for="complete-check">Tandai selesai dibaca</label>
+                        <input type="checkbox" name="selesai dibaca" id="complete-check">
+                    </div>
+                    <div class="warning"><i class="fa-solid fa-triangle-exclamation"></i> Lengkapi semua kolom terlebih
+                        dahulu</div>
+                    <input type="submit" value="Masukkan ke Rak Belum Selesai Dibaca">
+                </form>
+            </section>
+
+            <section>
+                <h3>Cari Buku</h3>
+                <form id="form-search">
+                    <div class="input-section">
+                        <label for="search-input">Judul:</label>
+                        <input type="search" name="cari judul" id="search-input" placeholder="e.g swarnadwipa"
+                            autocomplete="off">
+                        <small>error message</small>
+                    </div>
+                    <input type="submit" value="Cari">
+                </form>
+            </section>
+        </header>
+
+        <div class="reload-button">
+            <button onclick="reloadPage()"><i class="fa-solid fa-rotate-right"></i> Muat Ulang Halaman</button>
+        </div>
+
+        <main class="content-wrapper">
+            <section>
+                <h3>Belum Selesai Dibaca</h3>
+                <div id="uncompleted-book-list"></div>
+            </section>
+
+            <section>
+                <h3>Selesai Dibaca</h3>
+                <div id="iscompleted-book-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        /**
+          * [
+          *    {
+          *      id: <string> | <number>
+          *      title: <string>
+          *      author: <string>
+          *      year: <number>
+          *      isComplete: <boolean>
+          *    }
+          * ]
+          */
+
+        const books = [];
+        const RENDER_EVENT = 'render-book';
+        const SAVED_EVENT = 'saved-book';
+        const STORAGE_KEY = 'BOOKSHELF_APPS';
+
+        function isStorageExist() {
+            if (typeof (Storage) === undefined) {
+                alert('Browser Anda tidak mendukung Local Storage');
+                return false;
+            };
+            return true;
+        };
+
+        function generateId() {
+            return +new Date();
+        };
+
+        function generateObject(id, title, author, year, isComplete) {
+            return {
+                id,
+                title,
+                author,
+                year,
+                isComplete
+            };
+        };
+
+        function reloadPage() {
+            location.reload();
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const formInput = document.getElementById('form-input');
+            formInput.addEventListener('submit', (e) => {
+                e.preventDefault();
+                validateForm();
+            });
+
+            const formSearch = document.getElementById('form-search');
+            formSearch.addEventListener('submit', (e) => {
+                e.preventDefault();
+                checkingField();
+                searchBook();
+            });
+
+            if (isStorageExist()) {
+                loadDataFromStorage();
+            };
+        });
+
+        function validateForm() {
+            const bookTitleInput = document.getElementById('book-title-input');
+            const bookAuthorInput = document.getElementById('book-author-input');
+            const bookYearInput = document.getElementById('book-year-input');
+
+            const warning = document.querySelector('.warning');
+
+            if (bookTitleInput.value.trim() == '' && bookAuthorInput.value.trim() == '' && bookYearInput.value.trim() == '') {
+                warning.style.display = 'block';
+            } else {
+                const titleError = bookTitleInput.nextElementSibling;
+                const authorError = bookAuthorInput.nextElementSibling;
+                const yearError = bookYearInput.nextElementSibling;
+
+                warning.style.display = 'none';
+
+                if (bookTitleInput.value.trim() !== '' && bookAuthorInput.value.trim() !== '' && bookYearInput.value.trim() !== '' && bookYearInput.value.trim().length === 4) {
+                    titleError.style.display = 'none';
+                    authorError.style.display = 'none';
+                    yearError.style.display = 'none';
+
+                    addBook();
+                } else {
+                    if (bookTitleInput.value.trim() == '') {
+                        titleError.style.display = 'inline';
+                        titleError.innerText = 'Judul buku tidak boleh kosong';
+                    } else {
+                        titleError.style.display = 'none';
+                    };
+
+                    if (bookAuthorInput.value.trim() == '') {
+                        authorError.style.display = 'inline';
+                        authorError.innerText = 'Nama penulis tidak boleh kosong';
+                    } else {
+                        authorError.style.display = 'none';
+                    };
+
+                    if (bookYearInput.value.trim() == '') {
+                        yearError.style.display = 'inline';
+                        yearError.innerText = 'Tahun buku tidak boleh kosong';
+                    } else if (bookYearInput.value.trim().length < 4) {
+                        yearError.style.display = 'inline';
+                        yearError.innerText = 'Format tahun harus terdiri dari empat angka';
+                    } else if (bookYearInput.value.trim().length > 4) {
+                        yearError.style.display = 'inline';
+                        yearError.innerText = 'Format tahun tidak boleh lebih dari empat angka';
+                    } else {
+                        yearError.style.display = 'none';
+                    };
+                };
+            };
+        };
+
+        function addBook() {
+            const bookTitleInput = document.getElementById('book-title-input').value.trim();
+            const bookAuthorInput = document.getElementById('book-author-input').value.trim();
+            const bookYearInput = document.getElementById('book-year-input').value.trim();
+
+            const generatedID = generateId();
+            const bookObject = generateObject(generatedID, bookTitleInput.toLowerCase(), bookAuthorInput.toLowerCase(), bookYearInput, false);
+
+            const completeCheck = document.getElementById('complete-check');
+            const isChecked = completeCheck.checked;
+            if (isChecked) {
+                bookObject.isComplete = true;
+            };
+
+            books.push(bookObject);
+            saveData();
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        };
+
+        function saveData() {
+            if (isStorageExist()) {
+                const parsed = JSON.stringify(books);
+                localStorage.setItem(STORAGE_KEY, parsed);
+
+                document.dispatchEvent(new Event(SAVED_EVENT));
+            };
+        };
+
+        function loadDataFromStorage() {
+            const serializedData = localStorage.getItem(STORAGE_KEY);
+            let data = JSON.parse(serializedData);
+
+            if (data !== null) {
+                for (const index of data) {
+                    books.push(index);
+                };
+            };
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        };
+
+        function displayBookList(bookObject) {
+            const bookTitle = document.createElement('h4');
+            bookTitle.innerText = bookObject.title;
+
+            const bookAuthor = document.createElement('p');
+            bookAuthor.innerText = 'penulis: ' + bookObject.author;
+
+            const bookYear = document.createElement('p');
+            bookObject.year = Number(bookObject.year);
+            bookYear.innerText = 'tahun: ' + bookObject.year;
+
+            const listWrapper = document.createElement('div');
+            listWrapper.classList.add('list-wrapper');
+            listWrapper.setAttribute('id', `book-${bookObject.id}`);
+
+            if (bookObject.isComplete === false) {
+                const buttonMoveToCompletedList = document.createElement('button');
+                buttonMoveToCompletedList.innerText = 'selesai dibaca';
+
+                buttonMoveToCompletedList.addEventListener('click', () => {
+                    moveToCompletedList(bookObject.id);
+                });
+
+                const buttonRemoveFromUncompletedList = document.createElement('button');
+                buttonRemoveFromUncompletedList.innerText = 'hapus buku';
+
+                buttonRemoveFromUncompletedList.addEventListener('click', () => {
+                    removeFromUncompletedList(bookObject.id);
+                });
+
+                const buttonGroup = document.createElement('div');
+                buttonGroup.classList.add('button-group');
+                buttonGroup.append(buttonMoveToCompletedList, buttonRemoveFromUncompletedList);
+
+                listWrapper.append(bookTitle, bookAuthor, bookYear, buttonGroup);
+            } else {
+                const buttonMoveToUncompletedList = document.createElement('button');
+                buttonMoveToUncompletedList.innerText = 'belum selesai dibaca';
+
+                buttonMoveToUncompletedList.addEventListener('click', () => {
+                    moveToUncompletedList(bookObject.id);
+                });
+
+                const buttonRemoveFromCompletedList = document.createElement('button');
+                buttonRemoveFromCompletedList.innerText = 'hapus buku';
+
+                buttonRemoveFromCompletedList.addEventListener('click', () => {
+                    removeFromCompletedList(bookObject.id);
+                });
+
+                const buttonGroup = document.createElement('div');
+                buttonGroup.classList.add('button-group');
+                buttonGroup.append(buttonMoveToUncompletedList, buttonRemoveFromCompletedList);
+
+                listWrapper.append(bookTitle, bookAuthor, bookYear, buttonGroup);
+            };
+
+            return listWrapper;
+        };
+
+        function moveToCompletedList(bookId) {
+            const bookTarget = findBookId(bookId);
+
+            if (bookTarget == null) return;
+
+            bookTarget.isComplete = true;
+
+            saveData();
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        };
+
+        function moveToUncompletedList(bookId) {
+            const bookTarget = findBookId(bookId);
+
+            if (bookTarget == null) return;
+
+            bookTarget.isComplete = false;
+
+            saveData();
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        };
+
+        function findBookId(bookId) {
+            for (const bookItem of books) {
+                if (bookItem.id === bookId) {
+                    return bookItem;
+                };
+            };
+
+            return null;
+        };
+
+        function removeFromUncompletedList(bookId) {
+            const bookTarget = findBookIndex(bookId);
+
+            if (bookTarget === -1) return;
+
+            books.splice(bookTarget, 1);
+            location.reload();
+
+            saveData();
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        };
+
+        function removeFromCompletedList(bookId) {
+            const bookTarget = findBookIndex(bookId);
+
+            if (bookTarget === -1) return;
+
+            books.splice(bookTarget, 1);
+            location.reload();
+
+            saveData();
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        };
+
+        function findBookIndex(bookId) {
+            for (const index in books) {
+                if (books[index].id === bookId) {
+                    return index;
+                };
+            };
+
+            return -1;
+        };
+
+        function checkingField() {
+            const searchInput = document.getElementById('search-input');
+
+            const searchError = searchInput.nextElementSibling;
+            searchError.style.display = 'inline';
+
+            if (searchInput.value.trim() == '') {
+                searchError.innerText = 'Tuliskan judul buku yang ingin dicari';
+            } else {
+                if (searchInput.value.trim() !== '') {
+                    searchError.style.display = 'none';
+                    searchBook();
+                };
+            };
+        };
+
+        function searchBook() {
+            const searchInput = document.getElementById('search-input').value.trim();
+            const dataIndex = localStorage.getItem(STORAGE_KEY);
+            let data = JSON.parse(dataIndex);
+            let results = false;
+
+            const uncompletedBookList = document.getElementById('uncompleted-book-list');
+            const iscompletedBookList = document.getElementById('iscompleted-book-list');
+
+            uncompletedBookList.innerHTML = '';
+            iscompletedBookList.innerHTML = '';
+
+            for (const bookItem of data) {
+                if (isSearchMatch(bookItem, searchInput)) {
+                    const listElement = displayBookList(bookItem);
+
+                    if (bookItem.isComplete === false) {
+                        uncompletedBookList.append(listElement);
+                    } else {
+                        iscompletedBookList.append(listElement);
+                    };
+
+                    results = true;
+                };
+            };
+
+            if (!results) {
+                const toast = document.querySelector('.toast');
+                toast.style.transform = 'translateY(0)';
+
+                setTimeout(() => {
+                    toast.style.transform = 'translateY(-100%)';
+                }, 3000);
+            };
+        };
+
+        function isSearchMatch(bookItem, searchInput) {
+            const bookTitle = bookItem.title;
+            return bookTitle.includes(searchInput.toLowerCase());
+        };
+
+        document.addEventListener(RENDER_EVENT, () => {
+            const uncompletedBookList = document.getElementById('uncompleted-book-list');
+            const iscompletedBookList = document.getElementById('iscompleted-book-list');
+
+            uncompletedBookList.innerHTML = '';
+            iscompletedBookList.innerHTML = '';
+
+            for (const bookItem of books) {
+                const listElement = displayBookList(bookItem);
+
+                if (bookItem.isComplete === false) {
+                    uncompletedBookList.append(listElement);
+                } else {
+                    iscompletedBookList.append(listElement);
+                };
+            };
+        });
+    </script>
+</body>
+
+</html>
