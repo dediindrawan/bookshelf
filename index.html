@@ -433,6 +433,8 @@
             books.push(bookObject);
             saveData();
 
+            location.reload();
+
             document.dispatchEvent(new Event(RENDER_EVENT));
         };
 
