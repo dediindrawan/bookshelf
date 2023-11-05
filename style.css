@@ -198,19 +198,26 @@ button {
   position: relative;
 }
 
+.content-wrapper h3 i {
+  position: absolute;
+  top: 0.8em;
+  left: 1em;
+}
+
 .total-uncompleted,
 .total-iscompleted {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   display: grid;
   place-items: center;
-  font-size: 0.83rem;
+  font-size: 0.67rem;
   font-weight: 500;
-  border: 2px solid #fafafa;
+  border: 2px solid #2d2c2e;
   border-radius: 50%;
   position: absolute;
-  left: 1em;
-  background-image: linear-gradient(to top right, #9477f9 35%, #169c94);
+  top: 0.8em;
+  left: 2.6em;
+  background-color: #ff3e6c;
 }
 
 .list-wrapper {
@@ -239,4 +246,16 @@ button {
 .button-group button:last-child {
   color: #fafafa;
   background-color: #ff3e6c;
+}
+
+.notif-text {
+  margin: 1em;
+  padding: 1em;
+  font-size: 0.83rem;
+  text-align: center;
+  text-transform: capitalize;
+  border: 2px solid #2d2c2e;
+  border-radius: 5px;
+  color: #ffa200;
+  background-color: #212222;
 }

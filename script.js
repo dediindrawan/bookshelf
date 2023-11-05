@@ -407,7 +407,7 @@ function displayTotalItem() {
     // show total length book item on uncompleted book list
     if (totalLengthUncompleted === 0) {
         const notifText = document.createElement('p');
-        notifText.classList.add('list-wrapper');
+        notifText.classList.add('notif-text');
         notifText.innerText = 'tidak ada buku yang belum selesai dibaca.';
 
         uncompletedBookList.append(notifText);
@@ -418,7 +418,7 @@ function displayTotalItem() {
     // show total length book item on iscompleted book list
     if (totalLengthIscompleted === 0) {
         const notifText = document.createElement('p');
-        notifText.classList.add('list-wrapper');
+        notifText.classList.add('notif-text');
         notifText.innerText = 'tidak ada buku yang sudah selesai dibaca.';
 
         iscompletedBookList.append(notifText);
