@@ -77,6 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // display total length book item on the bookshelf
     displayTotalItem();
+
+    for (const data of books) {
+        console.log(data.title);
+    };
 });
 
 // validate form is activated
@@ -149,12 +153,27 @@ function addBook() {
         bookObject.isComplete = true;
     };
 
-    // save all input to books array
-    books.push(bookObject);
-    location.reload();
+    // check the same book title item and ignore duplication
+    if (!books.some(book => book.title === bookTitleInput.toLowerCase())) {
+        // save all input to books array
+        books.push(bookObject);
+        location.reload();
 
-    // save all input to local storage
-    saveData();
+        // save all input to local storage
+        saveData();
+    } else {
+        // show toast notification
+        const toast = document.querySelector('.toast');
+        toast.style.transform = 'translateY(0)';
+        toast.innerHTML =
+            `
+            <i class="fa-regular fa-face-frown"></i> Judul buku "${bookTitleInput.toUpperCase()}" sudah ada didalam rak.
+            `;
+
+        setTimeout(() => {
+            toast.style.transform = 'translateY(-100%)';
+        }, 3000);
+    };
 
     document.dispatchEvent(new Event(RENDER_EVENT));
 };
