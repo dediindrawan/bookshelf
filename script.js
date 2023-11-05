@@ -151,11 +151,10 @@ function addBook() {
 
     // save all input to books array
     books.push(bookObject);
+    location.reload();
 
     // save all input to local storage
     saveData();
-
-    location.reload();
 
     document.dispatchEvent(new Event(RENDER_EVENT));
 };
@@ -311,6 +310,7 @@ function removeFromCompletedList(bookId) {
     if (bookTarget === -1) return;
 
     books.splice(bookTarget, 1);
+    location.reload();
 
     // save change and update data on local storage
     saveData();
