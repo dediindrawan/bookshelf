@@ -64,15 +64,14 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            box-shadow: 0 0 4px #51dc8e;
-            color: #2d2c2e;
-            background-color: #51dc8e;
+            color: #fafafa;
+            background-color: #9477f9;
         }
 
         input[type='text']:focus,
         input[type='number']:focus,
         input[type='search']:focus {
-            border: 2px solid #51dc8e;
+            border: 2px solid #9477f9;
         }
 
         button {
@@ -111,23 +110,31 @@
 
         .form-wrapper h1 {
             margin-bottom: .5em;
-            color: #51dc8e;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to top right, #9477f9 25%, #169c94);
         }
 
         .form-wrapper h3 {
             margin-bottom: 1em;
+            padding: .5em 0;
             text-align: center;
-            border-bottom: 1px solid #2d2c2e;
+            border-bottom: 2px solid #2d2c2e;
+            background-color: #212222;
         }
 
         .form-wrapper section {
-            padding: 1em;
             border: 2px solid #2d2c2e;
             border-radius: 5px;
         }
 
         .form-wrapper section:last-child {
             margin-top: 1em;
+        }
+
+        .form-wrapper section form {
+            margin: 1em;
         }
 
         .input-section:not(:first-child) {
@@ -161,6 +168,7 @@
             border: 2px solid #ffa200;
             border-radius: 5px;
             color: #ffa200;
+            background-color: #212222;
             display: none;
         }
 
@@ -170,7 +178,6 @@
         }
 
         .content-wrapper section {
-            padding: 1em;
             border: 2px solid #2d2c2e;
             border-radius: 5px;
         }
@@ -181,8 +188,10 @@
 
         .content-wrapper h3 {
             margin-bottom: 1em;
+            padding: .5em 0;
             text-align: center;
-            border-bottom: 1px solid #2d2c2e;
+            border-bottom: 2px solid #2d2c2e;
+            background-color: #212222;
         }
 
         .reload-button {
@@ -193,20 +202,17 @@
         }
 
         .reload-button button {
-            color: #51dc8e;
+            color: #169c94;
             background-color: transparent;
         }
 
         .list-wrapper {
+            margin: 1em;
             padding: 1em;
             text-transform: capitalize;
             border: 2px solid #2d2c2e;
             border-radius: 5px;
             background-color: #212222;
-        }
-
-        .list-wrapper:not(:first-child) {
-            margin-top: 1em;
         }
 
         .list-wrapper h4 {
@@ -220,7 +226,7 @@
         .button-group button:first-child {
             margin-right: .5em;
             color: #fafafa;
-            background-color: #4735dd;
+            background-color: #169c94;
         }
 
         .button-group button:last-child {
@@ -232,7 +238,7 @@
 
 <body>
     <div class="container">
-        <div class="toast"><i class="fa-regular fa-face-frown"></i> Buku yang Anda cari tidak ada</div>
+        <div class="toast"><i class="fa-regular fa-face-frown"></i> Buku yang kamu cari tidak ada di rak manapun.</div>
         <header class="form-wrapper">
             <h1>Bookshelf Apps</h1>
             <section>
