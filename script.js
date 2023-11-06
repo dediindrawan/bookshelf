@@ -396,8 +396,13 @@ function searchBook() {
 
     // if no match result on search form, show toast notification
     if (!results) {
+        // show toast notification
         const toast = document.querySelector('.toast');
         toast.style.transform = 'translateY(0)';
+        toast.innerHTML =
+            `
+            <i class="fa-regular fa-face-frown"></i> Buku yang kamu cari tidak ada di rak manapun.
+            `;
 
         setTimeout(() => {
             toast.style.transform = 'translateY(-100%)';
